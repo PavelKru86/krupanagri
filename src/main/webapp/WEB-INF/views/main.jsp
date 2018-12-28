@@ -33,30 +33,34 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
+        <a class="navbar-brand" href="#">КРЮПАНАГРИ</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
+                    <a class="nav-link" href="#">Бизиборды
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="#">Акции</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
+                    <a class="nav-link" href="#">Доставка</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="#">Контакты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="register">Регистрация</a>
                 </li>
             </ul>
         </div>
 
-        <a href="meals" class="navbar-brand"><img src="resources/images/icon-meal.png"> <spring:message code="app.title"/></a>
+        <!--a href="meals" class="navbar-brand"><img src="resources/images/icon-meal.png"> <spring:message code="app.title"/></a-->
+        <!--a class="btn btn-lg btn-success" href="register"><spring:message code="app.register"/> </a-->
         <sec:authorize access="isAuthenticated()">
             <form:form class="form-inline my-2" action="logout" method="post">
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -70,13 +74,21 @@
         </sec:authorize>
         <sec:authorize access="isAnonymous()">
             <form:form class="form-inline my-2" id="login_form" action="spring_security_check" method="post">
+
                 <input class="form-control mr-1" type="text" placeholder="Email" name="username">
                 <input class="form-control mr-1" type="password" placeholder="Password" name="password">
-                <button class="btn btn-success" type="submit">
+                <!--a class="btn btn-success">
+                <img src="resources/images/sign_in.png" alt=""> type="submit">
                     <span class="fa fa-sign-in"></span>
-                </button>
+                </a-->
+                <a href="meals" class="nav-link" ><img src="resources/images/sign_in.png" width="40" height="24">
+                    <span class="fa fa-sign-in"></span>
+                </a>
+
             </form:form>
         </sec:authorize>
+
+
 
         <c:if test="${param.error}">
             <div class="error">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</div>

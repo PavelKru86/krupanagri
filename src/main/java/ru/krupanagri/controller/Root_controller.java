@@ -1,18 +1,22 @@
 package ru.krupanagri.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.support.SessionStatus;
+import ru.krupanagri.to.UserTo;
+import ru.krupanagri.util.UserUtil;
+
+import javax.validation.Valid;
 
 
-//@RequestMapping("/")
+
 @Controller
-public class Root_controller {
+public class Root_controller extends AbstractUserController {
 
-    //@RequestMapping(method = RequestMethod.GET)
+
     @GetMapping("/")
     public String index(ModelMap model){
        // model.addAttribute("message", "Spring MVC XML Config Example");
@@ -21,6 +25,7 @@ public class Root_controller {
     }
 
     @GetMapping("/register")
+    @ResponseStatus(value= HttpStatus.OK)
     public String register(ModelMap model) {
        // model.addAttribute("userTo", new UserTo());
         //model.addAttribute("register", true);
@@ -34,7 +39,7 @@ public class Root_controller {
         //return "forward:/views/main.html";
     }
 
-   /* @PostMapping("/register")
+    @PostMapping("/register")
     public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
         if (result.hasErrors()) {
             model.addAttribute("register", true);
@@ -44,7 +49,7 @@ public class Root_controller {
             status.setComplete();
             return "redirect:login?message=app.registered&username=" + userTo.getEmail();
         }
-    }*/
+    }
 
 
 

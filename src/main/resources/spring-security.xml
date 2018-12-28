@@ -13,6 +13,7 @@
     <http use-expressions="true">
         <intercept-url pattern="/" access="permitAll()"/>
         <intercept-url pattern="/product" access="permitAll()"/>
+        <intercept-url pattern="/register" access="isAnonymous()"/>
 
 
         <intercept-url pattern="/**" access="isAuthenticated()"/>
@@ -21,7 +22,7 @@
                     authentication-failure-url="/?error=true"
                     login-processing-url="/"/>
         <logout logout-success-url="/"/>
-        <!--<csrf disabled="true"/>-->
+        <csrf disabled="true"/>
     </http>
 
     <authentication-manager>

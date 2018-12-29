@@ -1,16 +1,18 @@
 package task.Array;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 public class DuplicateEncoder {
     static String encode(String word){
         int i = 0;
+        word = word.toLowerCase();
         List list = new ArrayList();
         List listRes = new ArrayList();
         Map<String,Integer> map = new HashMap<>();
         String[] str = word.split("");
        // char[] str = word.toCharArray();
-        StringBuilder stringBuilder = new StringBuilder(word);
+        StringBuilder stringBuilder = new StringBuilder();
        // list.add(str);
 
 
@@ -21,17 +23,21 @@ public class DuplicateEncoder {
                 //int g = map.get(res);
                 //i++;
                 //map.put(res,++g);
-               // listRes.add(")");
+                listRes.add(")"+res);
+               // listRes.replaceAll(a-> ")");
                 //listRes.add(res, ")");
             }
 
             else {
-                map.put(res,1);
-                listRes.add("(");
+                //map.put(res,1);
+                listRes.add(res);
                 list.add(res);
             }
 
 
+        }
+        for(Object ch : listRes) {
+            stringBuilder.r
         }
       /*  Iterator it = map.entrySet().iterator();
         while(it.hasNext()) {
@@ -49,8 +55,27 @@ public class DuplicateEncoder {
                 map.put("(", 1);
 
         }*/
+   /*   int x = 0;
+        StringBuilder stringBuilder = new StringBuilder(word);
+        word = word.toLowerCase();
+        Map<Integer,Character> map = new LinkedHashMap<>();
+       // Map<Integer, String> map2 = new LinkedHashMap<>();
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
 
-        for (Object ch : map.keySet()) {
+            if (map.containsValue(c)) {
+                x++;
+                Character ch = map.get(i);
+                //map.put(x,')');
+                map.replace(i,c,')');
+               // map.put(c, ++cnt);
+               // map.merge((a,b) -> b.);
+            } else {
+                map.put(i, c);
+            }
+        }*/
+       // Map<String, map> map2 = new HashMap<>()
+        for (Object ch : listRes) {
             stringBuilder.append(ch);
         }
 

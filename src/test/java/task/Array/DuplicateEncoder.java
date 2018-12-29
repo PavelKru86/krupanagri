@@ -9,36 +9,28 @@ public class DuplicateEncoder {
         word = word.toLowerCase();
         List list = new ArrayList();
         List listRes = new ArrayList();
-        Map<String,Integer> map = new HashMap<>();
+        LinkedHashMap<String,String> map = new LinkedHashMap<String, String>();
         String[] str = word.split("");
        // char[] str = word.toCharArray();
         StringBuilder stringBuilder = new StringBuilder();
        // list.add(str);
-
-
         for (String res : str) {
-          //  list.add(res);
-            if (list.contains(res)) {
-                //map.replace(, res, ")");
-                //int g = map.get(res);
-                //i++;
-                //map.put(res,++g);
-                listRes.add(")"+res);
-               // listRes.replaceAll(a-> ")");
-                //listRes.add(res, ")");
-            }
+            i++;
+            map.put(""+i, res);
+        }
 
+        LinkedHashMap<String, String> copy = new LinkedHashMap<String, String>(map); // создаём копию массива
+        for (Map.Entry<String, String> pair : copy.entrySet()){          // итератор ?
+            int freqeuncy = Collections.frequency(copy.values(), pair.getValue());  // применяем метод Collections.frequency, находит повторения в виде числа > 1
+            if (freqeuncy > 1){
+                removeItemFromMapByValue(map, pair.getValue()); // если такие имеются то передаём в метод для удаления.
+            }
             else {
-                //map.put(res,1);
-                listRes.add(res);
-                list.add(res);
+
             }
 
-
         }
-        for(Object ch : listRes) {
-            stringBuilder.r
-        }
+   //  Collections.
       /*  Iterator it = map.entrySet().iterator();
         while(it.hasNext()) {
             Map.Entry<String,Integer> pair = (Map.Entry) it.next();
@@ -55,27 +47,26 @@ public class DuplicateEncoder {
                 map.put("(", 1);
 
         }*/
-   /*   int x = 0;
-        StringBuilder stringBuilder = new StringBuilder(word);
-        word = word.toLowerCase();
-        Map<Integer,Character> map = new LinkedHashMap<>();
-       // Map<Integer, String> map2 = new LinkedHashMap<>();
-        for (int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
+    //  int x = 0;
 
-            if (map.containsValue(c)) {
-                x++;
-                Character ch = map.get(i);
-                //map.put(x,')');
-                map.replace(i,c,')');
-               // map.put(c, ++cnt);
-               // map.merge((a,b) -> b.);
-            } else {
-                map.put(i, c);
+
+     /*   word = word.toLowerCase();
+
+       // Map<Integer, String> map2 = new LinkedHashMap<>();
+        String[] str = word.split("");
+        List list = new ArrayList(Arrays.asList(str));
+        Map<Integer, List> map = new LinkedHashMap<>();
+
+
+        for (Map.Entry<Integer, List> entry : map.entrySet()) {
+            int freq = Collections.frequency(map.values(),entry.getValue());
+            if (freq > 1)
+            {
+                System.out.println("fuck");
             }
         }*/
        // Map<String, map> map2 = new HashMap<>()
-        for (Object ch : listRes) {
+        for (Object ch : map.keySet()) {
             stringBuilder.append(ch);
         }
 
@@ -97,6 +88,17 @@ public class DuplicateEncoder {
            else
                res = "(";
        }*/
+    }
+
+    public static void removeItemFromMapByValue(LinkedHashMap<String, String> map, String value)  // тут магия
+    {
+        LinkedHashMap<String, String> copy = new LinkedHashMap<String, String>(map);
+        for (Map.Entry<String, String> pair: copy.entrySet())
+        {
+            if (pair.getValue().equals(value))
+               // map.remove(pair.getKey());
+                map.put(pair.getKey(),")");
+        }
     }
 
 

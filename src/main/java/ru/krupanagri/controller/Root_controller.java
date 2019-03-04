@@ -47,10 +47,18 @@ public class Root_controller extends AbstractUserController {
         } else {
             super.create(UserUtil.createNewFromTo(userTo));
             status.setComplete();
-            return "redirect:login?message=app.registered&username=" + userTo.getEmail();
+            return "redirect:krupanagri?message=app.registered&username=" + userTo.getEmail();
         }
     }
 
+    @GetMapping(value = "/krupanagri")
+    public String login() {
+        return "main";
+    }
 
+    @GetMapping("/cart")
+    public String cart(ModelMap model) {
+        return "cart";
+    }
 
 }

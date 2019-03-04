@@ -3,6 +3,7 @@ package ru.krupanagri.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.krupanagri.AuthorizedUser;
 import ru.krupanagri.model.User;
+
+
+
 import ru.krupanagri.repository.UserRepository;
+
 import ru.krupanagri.to.UserTo;
 import ru.krupanagri.util.exception.NotFoundException;
 
@@ -25,6 +30,8 @@ import static ru.krupanagri.util.ValidationUtil.checkNotFoundWithId;
 @Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+    private static final Sort SORT_NAME_EMAIL = new Sort(Sort.Direction.ASC, "name", "email");
+
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
@@ -33,7 +40,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
     }
-
     @CacheEvict(value = "users", allEntries = true)
     @Override
     public User create(User user) {
@@ -101,4 +107,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User getWithMeals(int id) {
         return checkNotFoundWithId(repository.getWithMeals(id), id);
     }
+
+
 }

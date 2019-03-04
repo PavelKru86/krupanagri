@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.util;
+package ru.krupanagri.util;
 
 public class Util {
 

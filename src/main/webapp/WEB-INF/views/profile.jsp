@@ -63,11 +63,11 @@
     <h1>Creative SignUp Form</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-            <form action="register" method="post">
-                <input class="text" type="text" name="Username" placeholder="Username" required="">
+            <form role="form" modelAttribute="userTo" action="register" method="post">
+                <input class="text" type="text" name="name" placeholder="Username" required="">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
                 <input class="text" type="password" name="password" placeholder="Password" required="">
-                <input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">
+               <%-- <input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">--%>
                 <div class="wthree-text">
                     <label class="anim">
                         <input type="checkbox" class="checkbox" required="">

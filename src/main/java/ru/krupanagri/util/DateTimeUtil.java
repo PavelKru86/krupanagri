@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.util;
+package ru.krupanagri.util;
 
 import org.springframework.util.StringUtils;
 

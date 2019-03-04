@@ -16,7 +16,7 @@ import java.util.*;
 
 
 
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
@@ -51,7 +51,7 @@ public class User extends AbstractNamedEntity {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -62,22 +62,23 @@ public class User extends AbstractNamedEntity {
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @OrderBy("dateTime DESC")
-//    @JsonIgnore
-    protected List<Bisibord> meals;
+    @OrderBy("date_time DESC")
+//    @JsonIgnore*/
+    protected List<Bisi> bisi;
 
     public User() {
     }
 
-   /* public User(User u) {
-        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered());
-    }*/
-
-    public User(Integer id, String name, String email, String password,  Role role) {
-        //this(id, name, email, password, role);
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered(), u.getRoles());
     }
 
-    public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Date registered, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password,  Role role, Role... roles) {
+
+        this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
+    }
+
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
@@ -129,8 +130,8 @@ public class User extends AbstractNamedEntity {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
     }
 
-    public List<Bisibord> getMeals() {
-        return meals;
+    public List<Bisi> getBisi() {
+        return bisi;
     }
 
     @Override

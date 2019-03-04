@@ -4,37 +4,57 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
+
     <http pattern="/resources/**" security="none"/>
+    <http pattern="/webjars/**" security="none"/>
 
 
+
+   <!-- <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder" factory-method="createDelegatingPasswordEncoder"/>-->
+
+    <http pattern="/rest/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
+        <http-basic/>
+        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/profile/register" access="isAnonymous()"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <csrf disabled="true"/>
+    </http>
 
     <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder" factory-method="createDelegatingPasswordEncoder"/>
 
-    <http use-expressions="true">
+    <http> <!--use-expressions="true"-->
         <intercept-url pattern="/" access="permitAll()"/>
+        <intercept-url pattern="/cart" access="permitAll()"/>
+        <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/product" access="permitAll()"/>
         <intercept-url pattern="/register" access="isAnonymous()"/>
-
-
+        <intercept-url pattern="/krupanagri" access="permitAll()"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
 
-        <form-login login-page="/" default-target-url="/"
-                    authentication-failure-url="/?error=true"
-                    login-processing-url="/"/>
-        <logout logout-success-url="/"/>
+       <!-- <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>-->
+
+
+        <!--intercept-url pattern="/**" access="isAuthenticated()"/-->
+
+        <form-login login-page="/krupanagri" default-target-url="/krupanagri"
+                    authentication-failure-url="/krupanagri?error=true"
+                    login-processing-url="/spring_security_check"/>
+        <logout logout-success-url="/krupanagri"/>
         <csrf disabled="true"/>
     </http>
 
     <authentication-manager>
-        <authentication-provider>
-            <user-service>
+        <authentication-provider user-service-ref="userService">
+            <!--<user-service>
                 <user name="user1" password="user1Pass" authorities="ROLE_USER" />
-            </user-service>
-            <password-encoder ref="encoder" />
+            </user-service>-->
+            <password-encoder ref="passwordEncoder" />
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean id="encoder"
+   <!-- <beans:bean id="encoder"
                 class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-    </beans:bean>
+    </beans:bean>-->
+
+
 </beans:beans>

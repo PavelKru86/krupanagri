@@ -1,5 +1,6 @@
 package ru.krupanagri;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import ru.krupanagri.model.User;
 import ru.krupanagri.to.UserTo;
 import ru.krupanagri.util.UserUtil;

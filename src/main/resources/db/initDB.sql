@@ -1,16 +1,16 @@
 DROP TABLE IF EXISTS user_roles;
-DROP TABLE IF EXISTS meals;
+DROP TABLE IF EXISTS bisi;
 DROP TABLE IF EXISTS users;
-#DROP SEQUENCE IF EXISTS global_seq;
+DROP TABLE IF EXISTS global_seq;
 
-CREATE TABLE global_seq START 100000;
+
 
 CREATE TABLE users
 (
   id               INTEGER               AUTO_INCREMENT,
   name             VARCHAR(50)                 NOT NULL,
   email            VARCHAR(50)                 NOT NULL,
-  password         VARCHAR(50)                 NOT NULL,
+  password         VARCHAR(100)                 NOT NULL,
   registered       TIMESTAMP DEFAULT now() NOT NULL,
   enabled          BOOL DEFAULT TRUE       NOT NULL,
   PRIMARY KEY (id)
@@ -31,11 +31,12 @@ CREATE TABLE bisi (
   user_id     INTEGER   NOT NULL,
   date_time   TIMESTAMP NOT NULL,
   description TEXT      NOT NULL,
+  price       INTEGER   NOT NULL ,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
   PRIMARY KEY (id)
 );
 CREATE UNIQUE INDEX meals_unique_user_datetime_idx
-  ON meals (user_id, date_time);
+  ON bisi (user_id, date_time);
 
 
 

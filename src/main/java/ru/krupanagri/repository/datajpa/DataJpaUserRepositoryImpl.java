@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.krupanagri.model.User;
 import ru.krupanagri.repository.UserRepository;
 
+
 import java.util.List;
 
 @Repository

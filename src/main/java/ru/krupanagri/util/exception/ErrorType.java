@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.util.exception;
+package ru.krupanagri.util.exception;
 
 public enum ErrorType {
     APP_ERROR,
